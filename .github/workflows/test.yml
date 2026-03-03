@@ -31,4 +31,28 @@ jobs:
         run: uv sync --frozen --all-extras
 
       - name: Run all tests
-        run: uv run pytest
+        run: uv run pytest --cov=app --cov-report=term-missing > pytest_report.txt
+
+      # --- EXTRACTION DU Pourcentage de cov ---  
+      - name: Extract Coverage Percentage
+        id: extract_cov
+        run: |
+          # Extrait le chiffre du TOTAL (ex: 90%)
+          PERCENT=$(grep "TOTAL" pytest_report.txt | awk '{print $NF}' | sed 's/%//')
+          echo "COVERAGE=$PERCENT" >> $GITHUB_OUTPUT
+
+      - name: Generate Badge SVG
+        uses: emibcn/badge-action@v2.0.3
+        with:
+          label: 'Coverage'
+          status: ${{ steps.extract_cov.outputs.COVERAGE }}%
+          color: ${{ steps.extract_cov.outputs.COVERAGE > 80 && 'green' || 'orange' }}
+          path: 'badge-coverage.svg'
+
+      - name: Upload Badge to Branch
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: . # Dossier où se trouve le svg
+          branch: badges # Branche de destination
+          target-folder: badges-data # Sous-dossier
+          single-commit: true
