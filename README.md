@@ -9,8 +9,23 @@ Ce projet Toolbox_MLObs est en version 0.1.1 et appartient à Lionel-JOURDHIER.
 ### Liste des contributeurs
 [![Contributeurs](https://contrib.rocks/image?repo=Lionel-JOURDHIER/Toolbox_MLObs)](https://github.com/Lionel-JOURDHIER/Toolbox_MLObs/graphs/contributors)
 
+---
+
+## Automatisation du README
+
+Ce projet utilise un système de **README dynamique**. Ne modifiez pas directement le fichier `README.md`.
+
+### Comment ça marche ?
+1. Le fichier source est `README.template.md`.
+2. À chaque `git push`, une **GitHub Action** :
+   - Extrait la version depuis `pyproject.toml`.
+   - Remplace les marqueurs `0.1.1`, `Lionel-JOURDHIER` et `Toolbox_MLObs` par les valeurs réelles.
+   - Génère et commit le fichier `README.md` final.
+
+> **Note :** Si vous souhaitez modifier la présentation ou ajouter une section, faites-le dans **`README.template.md`**.
 
 ---
+
 ## 1. Structure du Template de Code
 
 Un projet doit être organisé de manière hermétique pour garantir la collaboration et la maintenance :
