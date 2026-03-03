@@ -26,11 +26,6 @@ def test_script_execution():
     # .resolve() transforme le chemin en chemin absolu sans '..'
     root_dir = Path(__file__).parent.parent.resolve()
     script_path = root_dir / "app" / "main.py"
-    # Petit check de sécurité pour le débug
-    if not script_path.exists():
-        raise FileNotFoundError(
-            f"Le script main.py est introuvable ici : {script_path}"
-        )
 
     # On lance le fichier
     result = subprocess.run(
