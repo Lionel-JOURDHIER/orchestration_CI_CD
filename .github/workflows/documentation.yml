@@ -28,7 +28,7 @@ jobs:
         run: uv sync --all-extras 
 
       - name: Generate API skeleton
-        run: uv run sphinx-apidoc -o docs/source app/
+        run: uv run sphinx-apidoc -o docs/source ./app
 
       # 2. GÉNÉRER LE HTML
       - name: Build Sphinx Documentation
