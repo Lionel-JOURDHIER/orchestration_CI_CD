@@ -19,7 +19,7 @@ Ce projet utilise un système de **README dynamique**. Ne modifiez pas directeme
 1. Le fichier source est `README.template.md`.
 2. À chaque `git push`, une **GitHub Action** :
    - Extrait la version depuis `pyproject.toml`.
-   - Remplace les marqueurs `%VERSION%`, `%USER%` et `%REPO%` par les valeurs réelles.
+   - Remplace les marqueurs %<span></span>VERSION%, %<span></span>USER% et %<span></span>REPO% par les valeurs réelles.
    - Génère et commit le fichier `README.md` final.
 
 > **Note :** Si vous souhaitez modifier la présentation ou ajouter une section, faites-le dans **`README.template.md`**.
