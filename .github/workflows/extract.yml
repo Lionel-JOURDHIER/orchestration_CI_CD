@@ -46,6 +46,7 @@ jobs:
           VERSION="${{ steps.get_version.outputs.PROJECT_VERSION }}"
           USER="${{ github.repository_owner }}"
           REPO="${{ github.event.repository.name }}"
+          EMAIL="lio.jourdhier@gmail.com"
           
           # On copie le template vers le vrai README avant de remplacer
           cp README.template.md README.md
@@ -55,10 +56,16 @@ jobs:
           sed -i "s/%USER%/$USER/g" README.md
           sed -i "s/%REPO%/$REPO/g" README.md
 
+          # Mise à jour du Code de Conduite (si tu as mis des marqueurs dedans)
+          sed -i "s/%EMAIL%/$EMAIL/g" CODE_OF_CONDUCT.md
+          sed -i "s/%REPO%/$REPO/g" CODE_OF_CONDUCT.md
+
       - name: Commit and Push README
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
           git add README.md
+          git add .github/CODE_OF_CONDUCT.md
+          
           git commit -m "docs: auto-update variables to v${{ steps.get_version.outputs.PROJECT_VERSION }} [skip ci]" || echo "No changes"
           git push
