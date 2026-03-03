@@ -133,10 +133,12 @@ html_theme_options = {
 
 ```
 
+
 ### 3.4 Générer automatiquement les rst
 Si vous voulez mettre à jour votre documentation en écrasant les anciens fichiers et en séparant bien chaque module sur sa propre page, utilisez ceci depuis la racine du projet :
 
 ```bash
+# Depuis la racine du projet
 sphinx-apidoc -f -e -o docs/source/ ./app
 
 ```
@@ -154,6 +156,10 @@ Voici les options les plus utiles pour personnaliser votre génération :
 ### 3.4. Compilation
 Utilise l'environnement virtuel géré par `uv` pour lancer Sphinx qui compile la documentation. Le format de sortie est HTML(Site Web)
 ```bash
+# Depuis la racine du projet
 uv run sphinx-build -b html docs/source public
 ```
+
+Vérifier la documentation HTML : `uv run python -m webbrowser public/index.html`
+
 
