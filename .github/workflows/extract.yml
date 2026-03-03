@@ -1,0 +1,40 @@
+name: CI Extraction
+on:
+  push:
+    branches: [ main, dev, 'feat/**' ]
+  pull_request:
+    branches: [ main ]
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+          cache-dependency-glob: "uv.lock"
+
+      - name: Set up Python
+        run: uv python install 3.11
+
+      - name: Install dependencies
+        run: uv sync --frozen --all-extras
+
+      # --- EXTRACTION DE LA VERSION ---
+      - name: Extract Project Version
+        id: get_version
+        run: |
+          # Extrait la version du pyproject.toml
+          VERSION=$(grep -m 1 '^version = ' pyproject.toml | cut -d '"' -f 2)
+          echo "PROJECT_VERSION=$VERSION" >> $GITHUB_OUTPUT
+          # Ajoute la version au résumé de l'action GitHub
+          echo "### 🚀 Version du projet : v$VERSION" >> $GITHUB_STEP_SUMMARY
