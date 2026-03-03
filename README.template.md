@@ -1,5 +1,7 @@
 # Architecture de base ToolBox
 
+Ce projet %REPO% est en version %VERSION% et appartient à %USER%.
+
 [![Documentation](https://img.shields.io/badge/Documentation-GitHub%20Pages-blue?logo=github&logoColor=white)](https://%USER%.github.io/%REPO%/) [![Code](https://img.shields.io/badge/Code-%VERSION%-181717?logo=github)](https://github.com/%USER%/%REPO%) ![Deploy Documentation](https://github.com/%USER%/%REPO%/actions/workflows/documentation.yml/badge.svg) [![Python Tests](https://github.com/%USER%/%REPO%/actions/workflows/test.yml/badge.svg)](https://github.com/%USER%/%REPO%/actions)  [![Ruff Status](https://github.com/%USER%/%REPO%/actions/workflows/ruff.yml/badge.svg)](https://github.com/%USER%/%REPO%/actions) ![Ruff](https://img.shields.io/badge/Ruff-checked-green?logo=ruff&logoColor=white)
 ![Python](https://img.shields.io/badge/python-3.11-blue.svg)  ![Linter](https://img.shields.io/badge/linter-ruff-orange.svg)  ![License](https://img.shields.io/badge/license-MIT-green.svg) ![uv](https://img.shields.io/badge/managed%20by-uv-de5b41.svg) ![Docker](https://img.shields.io/badge/docker-ready-blue.svg?logo=docker) ![Last Commit](https://img.shields.io/github/last-commit/%USER%/%REPO%) ![Repo Size](https://img.shields.io/github/repo-size/%USER%/%REPO%) ![Open Issues](https://img.shields.io/github/issues/%USER%/%REPO%)
 ![Contributeurs](https://img.shields.io/github/contributors/%USER%/%REPO%?logo=github&color=orange)
@@ -7,11 +9,8 @@
 ### Liste des contributeurs
 [![Contributeurs](https://contrib.rocks/image?repo=%USER%/%REPO%)](https://github.com/%USER%/%REPO%/graphs/contributors)
 
-### Code of conduct
-[![Code of Conduct](https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg)](.github/CODE_OF_CONDUCT.md)
+### Code of conduct [![Code of Conduct](https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg)](.github/CODE_OF_CONDUCT.md)
 
-
-Ce projet %REPO% est en version %VERSION% et appartient à %USER%.
 
 ---
 ## 1. Structure du Template de Code
