@@ -1,9 +1,9 @@
 # Toobox projet
 
 [![Deploy Documentation](https://github.com/Lionel-JOURDHIER/Toolbox_MLObs/actions/workflows/documentation.yml/badge.svg)](https://Lionel-JOURDHIER.github.io/Toolbox_MLObs/)| [Code](https://github.com/Lionel-JOURDHIER/Toolbox_MLObs)
-  [![Python Tests](https://github.com/Lionel-JOURDHIER/Toolbox_MLObs/actions/workflows/test.yml/badge.svg)](https://github.com/Lionel-JOURDHIER/Toolbox_MLObs/actions)  ![Ruff](https://github.com/Lionel-JOURDHIER/Toolbox_MLObs/actions/workflows/ci.yml/badge.svg)
+  [![Python Tests](https://github.com/Lionel-JOURDHIER/Toolbox_MLObs/actions/workflows/test.yml/badge.svg)](https://github.com/Lionel-JOURDHIER/Toolbox_MLObs/actions)  ![Ruff](https://img.shields.io/badge/Ruff-checked-green?logo=ruff&logoColor=white)
 ![Python](https://img.shields.io/badge/python-3.11-blue.svg)  ![Linter](https://img.shields.io/badge/linter-ruff-orange.svg)  ![License](https://img.shields.io/badge/license-MIT-green.svg) ![uv](https://img.shields.io/badge/managed%20by-uv-de5b41.svg) ![Docker](https://img.shields.io/badge/docker-ready-blue.svg?logo=docker)
-![Last Commit](https://img.shields.io/github/last-commit/Lionel-JOURDHIER/Toolbox_MLObs) ![Repo Size](https://img.shields.io/github/repo-size/Lionel-JOURDHIER/Toolbox_MLObs) ![Open Issues](https://img.shields.io/github/issues/Lionel-JOURDHIER/Toolbox_MLObs) ![Coverage](https://img.shields.io/badge/coverage-100%-dgreen.svg)
+![Last Commit](https://img.shields.io/github/last-commit/Lionel-JOURDHIER/Toolbox_MLObs) ![Repo Size](https://img.shields.io/github/repo-size/Lionel-JOURDHIER/Toolbox_MLObs) ![Open Issues](https://img.shields.io/github/issues/Lionel-JOURDHIER/Toolbox_MLObs) ![Coverage](https://img.shields.io/badge/coverage-100%-green.svg)
 ![Version](https://img.shields.io/github/v/tag/Lionel-JOURDHIER/Toolbox_MLObs?label=version&color=blue)
 ![Coverage](https://raw.githubusercontent.com/Lionel-JOURDHIER/Toolbox_MLObs/badges/badges-data/coverage-badge.svg)
 ---
