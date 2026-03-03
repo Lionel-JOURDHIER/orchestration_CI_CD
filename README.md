@@ -11,7 +11,7 @@
 [![Code of Conduct](https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg)](CODE_OF_CONDUCT.md)
 
 
-Ce projet %REPO% est en version %VERSION% et appartient à %USER%.
+Ce projet Toolbox_MLObs est en version 0.1.1 et appartient à Lionel-JOURDHIER.
 
 ---
 ## 1. Structure du Template de Code
