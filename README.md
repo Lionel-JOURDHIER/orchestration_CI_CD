@@ -1,5 +1,7 @@
 # Architecture de base ToolBox
 
+Ce projet Toolbox_MLObs est en version 0.1.1 et appartient à Lionel-JOURDHIER.
+
 [![Documentation](https://img.shields.io/badge/Documentation-GitHub%20Pages-blue?logo=github&logoColor=white)](https://Lionel-JOURDHIER.github.io/Toolbox_MLObs/) [![Code](https://img.shields.io/badge/Code-0.1.1-181717?logo=github)](https://github.com/Lionel-JOURDHIER/Toolbox_MLObs) ![Deploy Documentation](https://github.com/Lionel-JOURDHIER/Toolbox_MLObs/actions/workflows/documentation.yml/badge.svg) [![Python Tests](https://github.com/Lionel-JOURDHIER/Toolbox_MLObs/actions/workflows/test.yml/badge.svg)](https://github.com/Lionel-JOURDHIER/Toolbox_MLObs/actions)  [![Ruff Status](https://github.com/Lionel-JOURDHIER/Toolbox_MLObs/actions/workflows/ruff.yml/badge.svg)](https://github.com/Lionel-JOURDHIER/Toolbox_MLObs/actions) ![Ruff](https://img.shields.io/badge/Ruff-checked-green?logo=ruff&logoColor=white)
 ![Python](https://img.shields.io/badge/python-3.11-blue.svg)  ![Linter](https://img.shields.io/badge/linter-ruff-orange.svg)  ![License](https://img.shields.io/badge/license-MIT-green.svg) ![uv](https://img.shields.io/badge/managed%20by-uv-de5b41.svg) ![Docker](https://img.shields.io/badge/docker-ready-blue.svg?logo=docker) ![Last Commit](https://img.shields.io/github/last-commit/Lionel-JOURDHIER/Toolbox_MLObs) ![Repo Size](https://img.shields.io/github/repo-size/Lionel-JOURDHIER/Toolbox_MLObs) ![Open Issues](https://img.shields.io/github/issues/Lionel-JOURDHIER/Toolbox_MLObs)
 ![Contributeurs](https://img.shields.io/github/contributors/Lionel-JOURDHIER/Toolbox_MLObs?logo=github&color=orange)
@@ -7,11 +9,8 @@
 ### Liste des contributeurs
 [![Contributeurs](https://contrib.rocks/image?repo=Lionel-JOURDHIER/Toolbox_MLObs)](https://github.com/Lionel-JOURDHIER/Toolbox_MLObs/graphs/contributors)
 
-### Code of conduct
-[![Code of Conduct](https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg)](.github/CODE_OF_CONDUCT.md)
+### Code of conduct [![Code of Conduct](https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg)](.github/CODE_OF_CONDUCT.md)
 
-
-Ce projet Toolbox_MLObs est en version 0.1.1 et appartient à Lionel-JOURDHIER.
 
 ---
 ## 1. Structure du Template de Code
