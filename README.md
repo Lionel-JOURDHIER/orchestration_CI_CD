@@ -1,10 +1,15 @@
 # Architecture de base ToolBox
 
-[![Documentation](https://img.shields.io/badge/Documentation-GitHub%20Pages-blue?logo=github&logoColor=white)](https://Lionel-JOURDHIER.github.io/Toolbox_MLObs/) [![Code](https://img.shields.io/badge/Code-%VERSION%-181717?logo=github)](https://github.com/Lionel-JOURDHIER/Toolbox_MLObs) ![Deploy Documentation](https://github.com/Lionel-JOURDHIER/Toolbox_MLObs/actions/workflows/documentation.yml/badge.svg) [![Python Tests](https://github.com/Lionel-JOURDHIER/Toolbox_MLObs/actions/workflows/test.yml/badge.svg)](https://github.com/Lionel-JOURDHIER/Toolbox_MLObs/actions)  [![Ruff Status](https://github.com/Lionel-JOURDHIER/Toolbox_MLObs/actions/workflows/ruff.yml/badge.svg)](https://github.com/Lionel-JOURDHIER/Toolbox_MLObs/actions) ![Ruff](https://img.shields.io/badge/Ruff-checked-green?logo=ruff&logoColor=white)
+### Liste des badges
+[![Documentation](https://img.shields.io/badge/Documentation-GitHub%20Pages-blue?logo=github&logoColor=white)](https://Lionel-JOURDHIER.github.io/Toolbox_MLObs/) [![Code](https://img.shields.io/badge/Code-GitHub-181717?logo=github&logoColor=white)](https://github.com/Lionel-JOURDHIER/Toolbox_MLObs) ![Deploy Documentation](https://github.com/Lionel-JOURDHIER/Toolbox_MLObs/actions/workflows/documentation.yml/badge.svg) [![Python Tests](https://github.com/Lionel-JOURDHIER/Toolbox_MLObs/actions/workflows/test.yml/badge.svg)](https://github.com/Lionel-JOURDHIER/Toolbox_MLObs/actions)  [![Ruff Status](https://github.com/Lionel-JOURDHIER/Toolbox_MLObs/actions/workflows/ruff.yml/badge.svg)](https://github.com/Lionel-JOURDHIER/Toolbox_MLObs/actions) ![Ruff](https://img.shields.io/badge/Ruff-checked-green?logo=ruff&logoColor=white)
 ![Python](https://img.shields.io/badge/python-3.11-blue.svg)  ![Linter](https://img.shields.io/badge/linter-ruff-orange.svg)  ![License](https://img.shields.io/badge/license-MIT-green.svg) ![uv](https://img.shields.io/badge/managed%20by-uv-de5b41.svg) ![Docker](https://img.shields.io/badge/docker-ready-blue.svg?logo=docker) ![Last Commit](https://img.shields.io/github/last-commit/Lionel-JOURDHIER/Toolbox_MLObs) ![Repo Size](https://img.shields.io/github/repo-size/Lionel-JOURDHIER/Toolbox_MLObs) ![Open Issues](https://img.shields.io/github/issues/Lionel-JOURDHIER/Toolbox_MLObs)
+![Contributeurs](https://img.shields.io/github/contributors/Lionel-JOURDHIER/Toolbox_MLObs?logo=github&color=orange)
 
+### Liste des contributeurs
+[![Contributeurs](https://contrib.rocks/image?repo=Lionel-JOURDHIER/Toolbox_MLObs)](https://github.com/Lionel-JOURDHIER/Toolbox_MLObs/graphs/contributors)
 
-> Version actuelle : `v%VERSION%`
+### Code de conduite : 
+[![Code of Conduct](https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg)](CODE_OF_CONDUCT.md)
 
 ---
 ## 1. Structure du Template de Code
@@ -171,7 +176,6 @@ Pytest est le framework de référence pour valider la logique de calcul. Coupl�
 
 ### 4.1 Installation des dépendances
 Ajouter le dépendences pytest et pytest-cov à votre environnement de développement : 
-
 ```bash
 uv add --dev pytest pytest-cov
 ```
@@ -193,25 +197,21 @@ addopts = -v --cov=app --cov-report=term-missing --cov-report=html
 
 ## 5. Mise en place des GitHub Actions
 
-Les **GitHub Actions** automatisent votre flux de travail. À chaque fois que vous envoyez du code (`git push`), un serveur distant exécute vos tests, vérifie votre style de code et met à jour votre documentation.
+Les **GitHub Actions** automatisent le flux de travail. À chaque fois qu du code est envoyé (`git push`), un serveur distant exécute le tests, vérifie le style de code et met à jour la documentation.
 
-### 5.1. Pourquoi utiliser une CI/CD ?
+### 5.1. Configuration des workflows.
 
-* **Garde-fou :** Empêche l'intégration de code qui casse les calculs existants.
-* **Consistance :** Garantit que le code est formaté de la même manière pour tous les collaborateurs.
-* **Automatisation :** Plus besoin de compiler la documentation manuellement, elle est toujours à jour.
+Intégrer les fichier de Workflows au dossier `.github/workflows/` à la racine du projet.
 
-### 5.2. Configuration du Workflow (`.github/workflows/main.yml`)
+#### 5.1.1. Workflow de tests.
 
-Créez un fichier YAML à cet emplacement exact dans votre projet. Ce fichier ordonne à GitHub d'utiliser `uv` pour orchestrer les tâches.
+Pour les tests, on uttilise pytest et pytest-cov, et on génère un rapport de couverture dans la console.
 
 ```yaml
-name: Python Quality & Doc
+name: Python Tests
 on:
   push:
-    branches: [ main, dev ]
-  pull_request:
-    branches: [ main ]
+    branches: [ main, dev , 'feat/**']  # Branch to survey
 
 permissions:
   contents: write
@@ -219,7 +219,51 @@ permissions:
   id-token: write
 
 jobs:
-  build-and-test:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+        matrix:
+            python-version: ["3.11"]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v5
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v4
+        with:
+          enable-cache: true
+          cache-dependency-glob: "uv.lock"
+
+      - name: Set up Python ${{ matrix.python-version }}
+        run: uv python install ${{ matrix.python-version }}
+
+      - name: Install dependencies
+        run: uv sync --frozen --all-extras
+
+      - name: Run all tests
+        run: uv run pytest --cov=app --cov-report=term-missing > pytest_report.txt
+```
+
+#### 5.1.2. Workflow de documentation.
+Pour la documentation, on génère les fichiers .rst à partir du code source, puis on compile le HTML et on le déploie sur GitHub Pages.
+
+```yaml
+name: Deploy Documentation
+
+
+on:
+  push:
+    branches: [main]
+
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+
+jobs:
+  build-docs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -228,32 +272,41 @@ jobs:
       - name: Install uv
         uses: astral-sh/setup-uv@v5
         with:
-          enable-cache: true
+          version: "latest"
 
       - name: Install dependencies
-        run: uv sync --all-extras
-
-      - name: Linter (Ruff)
+        run: uv sync --all-extras 
+      - name: Debug - Look for app folder
         run: |
-          uv run ruff check .
-          uv run ruff format --check .
-
-      - name: Tests (Pytest)
-        run: uv run pytest
-
-      - name: Build Documentation (Sphinx)
+          echo "--- Emplacement actuel ---"
+          pwd
+          echo "--- Liste des fichiers à la racine ---"
+          ls -F
+          echo "--- Recherche du dossier app ---"
+          find . -maxdepth 2 -type d -name "app"
+          
+      - name: Generate API skeleton
         run: |
+          mkdir -p docs/source
+          # On cible le dossier 'app' qui contient ton code
+          # -f : force la régénération des fichiers .rst
           uv run sphinx-apidoc -f -o docs/source ./app
-          uv run sphinx-build -b html docs/source public
 
-      - name: Upload Artifact
+      # 2. GÉNÉRER LE HTML
+      - name: Build Sphinx Documentation
+        run: |
+          mkdir -p public
+          # -n : mode "nitpicky" (signale toutes les petites erreurs)
+          # -v : mode verbeux (affiche ce que Sphinx fait)
+          uv run sphinx-build -nv -b html docs/source public
+
+      - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: 'public'
 
-  deploy:
-    needs: build-and-test
-    if: github.ref == 'refs/heads/main'
+  deploy-docs:
+    needs: build-docs
     runs-on: ubuntu-latest
     environment:
       name: github-pages
@@ -264,15 +317,59 @@ jobs:
         uses: actions/deploy-pages@v4
 ```
 
-### 5.3 Activation sur Github 
+#### 5.1.3. Workflow de linting (Ruff).
 
-Pour que le déploiement fonctionne, vous devez autoriser GitHub Actions à publier des pages :
+Pour le Workflow de Linting, on utilise Ruff pour vérifier le style de code et corriger automatiquement les problèmes détectés.
 
-Clique sur l'onglet Settings (en haut à droite).
+```yaml
+name: Python Ruff
+on:
+  push:
+    branches: [ main, dev , 'feat/**']  # Branch to survey
 
-Dans le menu de gauche, clique sur Pages.
+permissions:
+  contents: write
+  pages: write
+  id-token: write
 
-Sous la section Build and deployment > Source, change "Deploy from a branch" pour "GitHub Actions".
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+        matrix:
+            python-version: ["3.11"]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v5
 
-Votre documentation sera alors accessible à l'adresse : https://<votre-pseudo>.github.io/<nom-du-repo>/
+      - name: Install uv
+        uses: astral-sh/setup-uv@v4
+        with:
+          enable-cache: true
+          cache-dependency-glob: "uv.lock"
+
+      - name: Set up Python ${{ matrix.python-version }}
+        run: uv python install ${{ matrix.python-version }}
+
+      - name: Install dependencies
+        run: uv sync --frozen --all-extras
+
+      - name: Run Ruff Check
+        # Vérifie les erreurs de code et de logique
+        run: uv run ruff check .
+
+      - name: Run Ruff Format
+        # Vérifie que le code est bien formaté (équivalent de Black)
+        run: uv run ruff format --check .
+```
+
+### 5.2 Activation sur Github 
+
+Pour que le déploiement fonctionne, GitHub Actions doit être autorisé à publier des pages :
+Il faut donc suivre ces étapes à partir du Repository en ligne
+* **Cliquer sur le button Settings** (en haut à droite dans la barre de menu).
+* **Cliquer sur Pages** dans le menu de gauche
+* **Selectionner "GitHub Actions"** à la place de "Deploy from a branch" dans la section Build and deployment > Source
+
+La documentation sera alors accessible à l'adresse : https://Lionel-JOURDHIER.github.io/Toolbox_MLObs/
 
