@@ -445,3 +445,73 @@ Il faut donc suivre ces étapes à partir du Repository en ligne
 
 La documentation sera alors accessible à l'adresse : https://%USER%.github.io/%REPO%/
 
+## 6. Docker & CI/CD
+
+Ce projet est entièrement conteneurisé et configuré pour un déploiement continu (CD).
+
+### Architecture de déploiement:
+
+- **Image de base :** `python:3.11-slim` (pour la compatibilité Pandas/Numpy)
+- **Gestionnaire :** [uv](https://github.com/astral-sh/uv) pour des builds ultra-rapides.
+- **CI/CD :** GitHub Actions (Tests Pytest -> Build Docker -> Push Docker Hub).
+- **Mise à jour :** Watchtower (détection automatique des nouvelles images sur le serveur).
+
+### Lancement local (Développement)
+
+Si vous voulez lancer l'application avec Docker sur votre machine :
+
+1. **Build de l'image :**
+   ```bash
+   docker build -t mon-app-python .
+   ```
+
+2. **Lancement du conteneur :**
+  ```bash
+  docker run -d -p 8080:5000 --name mon-conteneur mon-app-python
+  ```
+
+L'application sera accessible sur http://localhost:8080
+
+3. **Vérification des logs :**
+  ```bash
+  docker logs -f mon-conteneur
+  ```
+
+### Déploiement en Production (Serveur):
+
+Le déploiement est automatisé via GitHub Actions et Docker Compose.
+
+1. Configuration initiale du serveur
+* Installez Docker et Docker Compose sur votre VPS.
+* Copiez uniquement le fichier docker-compose.yml dans un dossier dédié (ex: /var/www/mon-app/).
+
+2. Lancement de la Stack
+  ```bash
+  docker compose up -d
+  ```
+
+Cela lancera simultanément :
+
+* L'application Python : accessible sur le port 80.
+* Watchtower : qui vérifiera toutes les 5 minutes sur Docker Hub si une nouvelle image est disponible pour redéployer l'app automatiquement.
+
+### Maintenance et Suppression :
+
+Voici les commandes pour gérer le cycle de vie de l'application :
+
+1. **Arrêter l'application sans supprimer les ressources:**
+  ```bash
+  docker compose stop
+  ```
+2. **Arrêter l'application en supprimant le contener et le réseaux:**
+  ```bash
+  docker compose down
+  ```
+3. **Supprimer l'image de l'application:**
+  ```bash
+  docker rmi $DOCKER_USER/mon-app-python:latest
+  ```
+4. **Nettoyage complet (recommandé si l'espace disque est saturé) :**
+  ```bash
+  docker system prune -f
+  ```

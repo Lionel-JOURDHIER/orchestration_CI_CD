@@ -2,8 +2,8 @@ services:
   # --- L'APPLICATION PYTHON ---
   web-app:
     # Remplace 'ton-pseudo' par ton login Docker Hub
-    image: ton-pseudo/mon-app-python:latest
-    container_name: flask-app
+    image: ${DOCKER_USER}/mon-app-python:latest
+    container_name: mon-conteneur
     restart: always
     ports:
       - "80:5000" # Accès web : port 80 du serveur -> port 5000 du conteneur
@@ -26,4 +26,4 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
     # --interval 300 : vérifie toutes les 5 min
     # --cleanup : supprime les anciennes images pour gagner de la place
-    command: --interval 300 --cleanup flask-app
+    command: --interval 300 --cleanup mon-conteneur

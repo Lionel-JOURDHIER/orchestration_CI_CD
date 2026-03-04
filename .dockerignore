@@ -17,3 +17,5 @@ wheels/
 .coverage
 htmlcov/
 docs/
+
+.env

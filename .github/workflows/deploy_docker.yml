@@ -43,4 +43,4 @@ jobs:
           context: .
           push: true
           # Remplace par ton pseudo Docker Hub et ton nom d'image
-          tags: ton-pseudo/mon-app-python:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/mon-app-python:latest
