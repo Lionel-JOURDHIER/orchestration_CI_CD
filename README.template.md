@@ -10,6 +10,69 @@ Ce projet %REPO% est en version %VERSION% et appartient à %USER%.
 [![Contributeurs](https://contrib.rocks/image?repo=%USER%/%REPO%)](https://github.com/%USER%/%REPO%/graphs/contributors)
 
 ---
+## Quickstart : Toolbox MLObs
+
+Ce guide vous permet d'installer, de tester et d'exécuter le projet immédiatement.
+
+### 1. Installation rapide
+
+L'utilisation de `uv` est recommandée pour une installation ultra-rapide des dépendances.
+
+```bash
+# Cloner et entrer dans le projet
+git clone [https://github.com/%USER%/%REPO%.git](https://github.com/%USER%/%REPO%.git) && cd %REPO%
+
+# Créer l'environnement virtuel et installer les dépendances d'un coup
+uv venv
+source .venv/bin/activate  # Sur Windows: .venv\Scripts\activate
+
+# Installer les packages nécessaires
+uv sync
+```
+
+### 2. Execution du programme
+
+Pour exécuter le programme tout en garantissant la résolution des imports :
+
+```bash
+# Via l'environnement activé
+python -m app.main
+
+# OU directement avec uv (sans activation préalable)
+uv run python -m app.main
+```
+
+### 3. Test & Qualité
+```bash
+# Lancer les tests avec uv
+uv run pytest --cov=app --cov-report=term-missing
+
+# Analyser le code avec ruff via uv
+uv run ruff check .
+```
+
+### 4. Documentation :
+
+La documentation technique est générée avec **Sphinx** et le thème **Furo**. Elle inclut la description des fonctions, les signatures de type et les formules mathématiques.
+
+#### Installation et Génération
+Pour installer les outils et générer le rapport HTML :
+
+1. **Installation** : `uv pip install sphinx furo`
+2. **Génération** : `cd docs && uv run make html`
+
+---
+
+## Sommaire Rapide
+
+Pour naviguer directement vers une section spécifique du projet :
+
+* **[2. Qualité du Code avec Ruff](#2-qualité-du-code-avec-ruff)** : Maintenir un code propre et performant.
+* **[3. Installation de Sphynx-Furo](#3-installation-de-sphynx-furo)** : Générer la documentation technique.
+* **[4. Installation Pytest](#4-installation-pytest)** : Configurer l'environnement de test et le coverage.
+* **[5. Mise en place des GitHub Actions](#5-mise-en-place-des-github-actions)** : Automatiser les tests et le déploiement.
+
+---
 
 ## Automatisation du README
 

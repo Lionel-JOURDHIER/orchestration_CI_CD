@@ -1,5 +1,6 @@
 import pandas as pd
-from modules.mon_module import add, print_data, square, sub
+
+from app.modules.mon_module import add, print_data, square, sub
 
 
 def get_values_from_csv(filepath: str) -> pd.DataFrame:
