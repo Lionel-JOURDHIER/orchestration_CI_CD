@@ -516,12 +516,15 @@ Voici les commandes pour gérer le cycle de vie de l'application :
   ```bash
   docker compose down
   ```
-3. 
+
 3. **Supprimer l'image de l'application:**
   ```bash
-  docker rmi $DOCKER_USER/mon-app-python:latest
+  docker rmi fatman3194/mon-app-python
+  docker rmi containrrr/watchtower
   ```
+  
 4. **Nettoyage complet (recommandé si l'espace disque est saturé) :**
   ```bash
-  docker system prune -f
+  docker compose stop
+  docker system prune
   ```
