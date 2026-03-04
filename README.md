@@ -467,14 +467,16 @@ Si vous voulez lancer l'application avec Docker sur votre machine :
 
 2. **Lancement du conteneur :**
   ```bash
-  docker run -d -p 8080:5000 --name mon-conteneur mon-app-python
+  docker run -d -p 8080:5000 --name $DOCKER_CONTENEUR mon-app-python
   ```
 
 L'application sera accessible sur http://localhost:8080
 
+Vous pouvez lancer un autre port que 8080 pour lancer le conteneur sur le serveur.
+
 3. **Vérification des logs :**
   ```bash
-  docker logs -f mon-conteneur
+  docker logs -f $DOCKER_CONTENEUR
   ```
 
 ### Déploiement en Production (Serveur):
@@ -484,8 +486,15 @@ Le déploiement est automatisé via GitHub Actions et Docker Compose.
 1. Configuration initiale du serveur
 * Installez Docker et Docker Compose sur votre VPS.
 * Copiez uniquement le fichier docker-compose.yml dans un dossier dédié (ex: /var/www/mon-app/).
+* Créer un fichier .env à la racine du projet : 
 
-2. Lancement de la Stack
+  ```bash
+  DOCKER_USER=votre_pseudo
+  DOCKER_CONTENEUR=nom_de_l_image
+  APP_PORT=80
+  ```
+
+1. Lancement de la Stack
   ```bash
   docker compose up -d
   ```
@@ -507,6 +516,7 @@ Voici les commandes pour gérer le cycle de vie de l'application :
   ```bash
   docker compose down
   ```
+3. 
 3. **Supprimer l'image de l'application:**
   ```bash
   docker rmi $DOCKER_USER/mon-app-python:latest
