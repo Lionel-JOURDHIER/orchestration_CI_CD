@@ -1,5 +1,6 @@
 # Projet 1 : Fondations, Standardisation et Excellence Technique
 
+
 Ce projet constitue la "Toolbox" (boîte à outils) de référence du cursus. L'objectif est de construire un environnement de développement professionnel, automatisé et documenté, servant de template pour tous vos futurs travaux en IA.
 
 ## 1. Structure du Template de Code
