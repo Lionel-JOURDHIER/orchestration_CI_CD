@@ -17,7 +17,9 @@ services:
       driver: "json-file"
       options:
         max-size: "10m" # Limite la taille des fichiers de logs
-
+    volumes:
+      - ./data:/app/app
+      
   # --- LE GARDIEN DU CD (Mise à jour automatique) ---
   watchtower:
     image: containrrr/watchtower
