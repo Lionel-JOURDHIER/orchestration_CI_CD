@@ -54,12 +54,7 @@ uv run ruff check .
 ### 4. Documentation :
 
 La documentation technique est générée avec **Sphinx** et le thème **Furo**. Elle inclut la description des fonctions, les signatures de type et les formules mathématiques.
-
-#### Installation et Génération
-Pour installer les outils et générer le rapport HTML :
-
-1. **Installation** : `uv pip install sphinx furo`
-2. **Génération** : `cd docs && uv run make html`
+Veuillez suivre le protocole de documentation ici : **[3. Installation de Sphynx-Furo](#3-installation-de-sphynx-furo)** pour obtenir plus d'informations
 
 ---
 
