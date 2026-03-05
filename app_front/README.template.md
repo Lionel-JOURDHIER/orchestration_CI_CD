@@ -10,6 +10,7 @@ Ce projet %REPO% est en version %VERSION% et appartient à %USER%.
 [![Contributeurs](https://contrib.rocks/image?repo=%USER%/%REPO%)](https://github.com/%USER%/%REPO%/graphs/contributors)
 
 ---
+
 ## Quickstart : Toolbox MLObs
 
 Ce guide vous permet d'installer, de tester et d'exécuter le projet immédiatement.

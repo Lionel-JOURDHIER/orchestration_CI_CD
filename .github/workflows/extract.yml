@@ -22,18 +22,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v5
 
-      - name: Install uv app_front
-        uses: astral-sh/setup-uv@v4
-        with:
-          enable-cache: true
-          cache-dependency-glob: "app_front/uv.lock"
-
-      - name: Set up Python ${{ matrix.python-version }}
-        run: uv python install ${{ matrix.python-version }}
-
-      - name: Install dependencies
-        run: uv sync --frozen --all-extras --all-groups
-
       # --- EXTRACTION DE LA VERSION ---
       - name: Extract Project Version
         id: get_version
