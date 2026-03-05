@@ -8,3 +8,10 @@ dependencies = [
     "fastapi>=0.135.1",
     "pydantic>=2.12.5",
 ]
+
+[dependency-groups]
+dev = [
+    "pytest>=9.0.2",
+    "pytest-cov>=7.0.0",
+    "ruff>=0.15.4",
+]
