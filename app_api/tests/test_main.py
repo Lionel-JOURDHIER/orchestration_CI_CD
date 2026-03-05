@@ -1,0 +1,2 @@
+def true():
+    assert True
