@@ -11,14 +11,14 @@ WORKDIR /app_front
 
 # 3. Copie des fichiers de dépendances
 # uv utilisera uv.lock pour figer les versions si le fichier est présent
-COPY app_front/pyproject.toml app_front/uv.lock ./
+COPY pyproject.toml uv.lock ./
 
 # 4. Installation des dépendances via uv pip
 # L'argument -r pyproject.toml permet de lire directement le fichier de projet
 RUN uv pip install --system --no-cache -r app_front/pyproject.toml
 
 # 5. Copie du reste de l'application
-COPY app_front/ app_front/
+COPY . .
 
 # 6. Exposition du port par défaut de Streamlit
 EXPOSE 8501
