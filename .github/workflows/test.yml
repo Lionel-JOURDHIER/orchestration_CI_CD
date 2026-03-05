@@ -33,8 +33,10 @@ jobs:
 
       - name: Install dependencies
         run: uv sync --frozen --all-extras --all-groups
-
+      
       - name: Run all tests
+        env:
+          FASTAPI_PORT: 8000
         run: |
           # Exécution et capture
           uv run pytest --cov=app --cov-report=term-missing --cov-report=json:coverage.json | tee pytest_report.txt
