@@ -44,13 +44,9 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           # Le contexte de l'action reste la RACINE (là où est le docker-compose.yml)
-          context: . 
-          # On utilise la définition du service 'web-app' du compose
-          # Docker ira chercher tout seul dans app_front/ grâce au 'context' défini dans le YAML
+          context: app_front
+          # On précise le chemin du Dockerfile par rapport à la racine du REPO
           file: app_front/Dockerfile 
           push: true
-          # On utilise le service défini dans votre Compose
-          add-hosts: |
-            docker-compose.yml
           # Remplace par ton pseudo Docker Hub et ton nom d'image
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/mon-app-python:latest
