@@ -9,17 +9,19 @@ jobs:
   test-and-deploy:
     runs-on: ubuntu-latest
 
-    steps:
-      # 1. Récupère ton code depuis GitHub
-      - name: Checkout code
-        uses: actions/checkout@v4
+    defaults:
+      run:
+        working-directory: app_front
 
-      # 2. Installe 'uv' sur la machine virtuelle de GitHub
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v5
+
       - name: Install uv app_front
         uses: astral-sh/setup-uv@v4
         with:
           enable-cache: true
-          cache-dependency-glob: "app_front/uv.lock"
+          cache-dependency-glob: "uv.lock"
 
       # 3. Lance les tests (Pytest)
       # Si cette étape échoue, le déploiement s'arrête immédiatement
