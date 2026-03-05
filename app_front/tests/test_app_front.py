@@ -1,2 +1,4 @@
 #! faire les tests
-assert True
+def test_exemple_simple():
+    """Un test basique pour vérifier que pytest fonctionne."""
+    assert True
