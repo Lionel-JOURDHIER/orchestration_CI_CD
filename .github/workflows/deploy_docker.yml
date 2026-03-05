@@ -9,23 +9,26 @@ jobs:
   test-and-deploy:
     runs-on: ubuntu-latest
 
-    defaults:
-      run:
-        working-directory: app_front
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v5
 
-      - name: Install uv app_front
+      - name: Install uv
         uses: astral-sh/setup-uv@v4
         with:
           enable-cache: true
-          cache-dependency-glob: "app_front/uv.lock"
+          cache-dependency-glob: "app_*/uv.lock"
 
       # 3. Lance les tests (Pytest)
       # Si cette étape échoue, le déploiement s'arrête immédiatement
-      - name: Run Tests
+      - name: Run Frontend Tests
+        working-directory: app_front
+        run: |
+          uv sync --frozen --all-extras
+          uv run pytest
+
+      - name: Run API Tests
+        working-directory: app_api
         run: |
           uv sync --frozen --all-extras
           uv run pytest
@@ -39,14 +42,26 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       # 5. Build l'image Docker et l'envoie sur le Hub
-      - name: Build and Push
+      - name: Build and Push Front
         if: success()
         uses: docker/build-push-action@v5
         with:
           # Le contexte de l'action reste la RACINE (là où est le docker-compose.yml)
-          context: app_front
+          context: ./app_front
           # On précise le chemin du Dockerfile par rapport à la racine du REPO
-          file: app_front/Dockerfile 
+          file: ./app_front/Dockerfile 
           push: true
           # Remplace par ton pseudo Docker Hub et ton nom d'image
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/mon-app-python:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/app-front:latest
+
+      - name: Build and Push API
+        if: success()
+        uses: docker/build-push-action@v5
+        with:
+          # Le contexte de l'action reste la RACINE (là où est le docker-compose.yml)
+          context: ./app_api
+          # On précise le chemin du Dockerfile par rapport à la racine du REPO
+          file: ./app_api/Dockerfile 
+          push: true
+          # Remplace par ton pseudo Docker Hub et ton nom d'image
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/app-api:latest
