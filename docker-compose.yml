@@ -1,30 +1,24 @@
 services:
-  # --- L'APPLICATION PYTHON ---
   web-app:
-    # Remplace 'ton-pseudo' par ton login Docker Hub
+    # --- AJOUTEZ CETTE SECTION ---
+    build:
+      context: ./app_front  # On pointe vers le sous-dossier
+      dockerfile: Dockerfile # Le fichier dans app_front/Dockerfile
+    # -----------------------------
     image: ${DOCKER_USER}/${DOCKER_CONTENEUR}:latest
     container_name: ${DOCKER_CONTENEUR}
-    restart: always # si on ne veux pas que le main tourne en boucle : "no"
+    restart: always
     ports:
-      - "${APP_PORT:-80}:5000" # Accès web : port défini dans la80 du serveur -> port 5000 du conteneur
+      - "${APP_PORT:-80}:5000"
     environment:
       - PYTHONUNBUFFERED=1
       - PYTHONDONTWRITEBYTECODE=1
       - ENV=production
-    # On force la commande pour lancer ton paquet Python
-    command: ["uv", "run", "python", "-m", "app.main"]
+    # Vérifiez que le chemin vers votre module est correct 
+    # (si votre fichier est app_front/main.py, la commande pourrait varier)
+    command: ["uv", "run", "python", "main.py"] 
     logging:
       driver: "json-file"
       options:
-        max-size: "10m" # Limite la taille des fichiers de logs
+        max-size: "10m"
 
-  # --- LE GARDIEN DU CD (Mise à jour automatique) ---
-  watchtower:
-    image: containrrr/watchtower
-    container_name: watchtower
-    restart: always
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-    # --interval 300 : vérifie toutes les 5 min
-    # --cleanup : supprime les anciennes images pour gagner de la place
-    command: --interval 300 --cleanup ${DOCKER_CONTENEUR}
