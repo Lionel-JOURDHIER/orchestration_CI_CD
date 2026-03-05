@@ -27,12 +27,12 @@ jobs:
         with:
           enable-cache: true
           cache-dependency-glob: "app_front/uv.lock"
-          
+
       - name: Set up Python ${{ matrix.python-version }}
         run: uv python install ${{ matrix.python-version }}
 
       - name: Install dependencies
-        run: uv sync --frozen --all-extras
+        run: uv sync --frozen --all-extras --all-groups
 
       - name: Run Ruff Check
         # Vérifie les erreurs de code et de logique

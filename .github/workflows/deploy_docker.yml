@@ -27,7 +27,7 @@ jobs:
       # Si cette étape échoue, le déploiement s'arrête immédiatement
       - name: Run Tests
         run: |
-          uv sync --frozen --all-extras --all-groups
+          uv sync --frozen --all-extras
           uv run pytest
 
       # 4. Connexion au Docker Hub (utilise tes Secrets GitHub)
