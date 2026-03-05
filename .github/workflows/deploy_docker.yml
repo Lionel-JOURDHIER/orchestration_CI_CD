@@ -43,7 +43,12 @@ jobs:
         if: success()
         uses: docker/build-push-action@v5
         with:
-          context: .
+          # Le contexte de l'action reste la RACINE (là où est le docker-compose.yml)
+          context: . 
+          # On utilise la définition du service 'web-app' du compose
+          # Docker ira chercher tout seul dans app_front/ grâce au 'context' défini dans le YAML
+          compose-file: docker-compose.yml
+          compose-service: web-app
           push: true
           # Remplace par ton pseudo Docker Hub et ton nom d'image
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/mon-app-python:latest
