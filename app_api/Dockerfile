@@ -14,9 +14,7 @@ WORKDIR /app
 COPY pyproject.toml uv.lock ./
 
 # 4. Installation des dépendances
-# --system : installe dans le site-packages global
-# --no-cache : réduit la taille de l'image finale
-RUN uv pip install --system --no-cache -r pyproject.toml
+RUN uv pip install --system --no-cache uvicorn fastapi
 
 # 5. Copie du code source
 COPY . .
@@ -25,4 +23,4 @@ COPY . .
 EXPOSE 8080
 
 # 7. Lancement de l'API
-CMD ["uvicorn", "monapi:app", "--host", "0.0.0.0", "--port", "8080"]
+CMD ["python", "-m", "uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8080"]

@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 API_PORT = int(os.getenv("FASTAPI_PORT", "8000"))
-API_URL = f"http://0.0.0.0:{API_PORT}/"
+API_URL = f"http://mon_api:{API_PORT}/"
 
 # pour des raisons de sécuritées.
 # il faut stocker cela comme variable d'environnement.
@@ -24,7 +24,7 @@ if st.button("ping l'API (Route /)"):
         reponse = requests.get(API_URL)
         if reponse.status_code == 200:
             # 2. --- Si il y a un resultat l'afficher ---
-            st.success(f"Connexion reussi à l'API FastAPI sur http://{API_URL} ! ")
+            st.success(f"Connexion reussi à l'API FastAPI sur {API_URL} ! ")
             st.code(f"Statuts HTTP : {reponse.status_code}")
             st.json(reponse.json())
         else:

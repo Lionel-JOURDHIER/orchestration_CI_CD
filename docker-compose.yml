@@ -4,7 +4,7 @@ services:
       context: ./app_front
       dockerfile: Dockerfile
     ports:
-      - "${STREAMLIT_PORT}:8501"
+      - "${STREAMLIT_PORT:-8501}:8501"
     env_file:
       - .env
     networks:
@@ -13,10 +13,16 @@ services:
     build: ./app_api
     container_name: mon_api
     ports:
-      - "${FASTAPI_PORT}:8000" 
+      - "${FASTAPI_PORT:-8000}:8080"
+    # volumes:
+    #   - ./app_api:/app
+    environment:
+      - FASTAPI_PORT=${FASTAPI_PORT}
+    restart: always
+    command: >
+      sh -c "python -m uvicorn main:app --host 0.0.0.0 --port $$FASTAPI_PORT"
     networks:
       - app_network
-    command: uvicorn child_api:app --host 0.0.0.0 --port 8000
 
 networks:
   app_network:

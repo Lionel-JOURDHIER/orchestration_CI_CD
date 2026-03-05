@@ -1,6 +1,13 @@
-def main():
-    print("Hello from app-api!")
+from fastapi import FastAPI
+
+app = FastAPI()
 
 
-if __name__ == "__main__":
-    main()
+@app.get("/")
+def root():
+    return {"message": "Connexion établie !"}
+
+
+@app.get("/health")
+def health():
+    return {"status": "ok"}

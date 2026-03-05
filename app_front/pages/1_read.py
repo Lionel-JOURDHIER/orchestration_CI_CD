@@ -9,7 +9,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 API_PORT = int(os.getenv("FASTAPI_PORT", "8000"))
-API_ROOT_URL = f"http://0.0.0.0:{API_PORT}"
+API_ROOT_URL = f"http://mon_api:{API_PORT}"
 API_URL = API_ROOT_URL + "/read/"
 
 st.title("Lire toutes les citations")
