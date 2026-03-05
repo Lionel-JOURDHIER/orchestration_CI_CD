@@ -15,7 +15,7 @@ COPY pyproject.toml uv.lock ./
 
 # 4. Installation des dépendances via uv pip
 # L'argument -r pyproject.toml permet de lire directement le fichier de projet
-RUN uv pip install --system --no-cache -r app_front/pyproject.toml
+RUN uv pip install --system --no-cache -r /pyproject.toml
 
 # 5. Copie du reste de l'application
 COPY . .
