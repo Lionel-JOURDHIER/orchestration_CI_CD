@@ -15,10 +15,11 @@ jobs:
         uses: actions/checkout@v4
 
       # 2. Installe 'uv' sur la machine virtuelle de GitHub
-      - name: Setup uv
-        uses: astral-sh/setup-uv@v3
+      - name: Install uv app_front
+        uses: astral-sh/setup-uv@v4
         with:
-          enable-cache: true # Accélère les futurs builds
+          enable-cache: true
+          cache-dependency-glob: "app_front/uv.lock"
 
       # 3. Lance les tests (Pytest)
       # Si cette étape échoue, le déploiement s'arrête immédiatement
