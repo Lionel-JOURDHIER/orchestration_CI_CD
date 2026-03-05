@@ -1,4 +1,4 @@
-# Code de conduite du projet Toolbox_MLObs
+# Code de conduite du projet orchestration_CI_CD
 
 ## Notre engagement
 Dans l’intérêt de favoriser un environnement ouvert et accueillant, nous nous engageons, en tant que contributeurs et responsables, à faire de la participation à notre projet et à notre communauté une expérience exempte de harcèlement pour tout le monde, quel que soit l’âge, la taille du corps, le handicap apparent ou non, l’ethnie, les caractéristiques sexuelles, l’identité et l’expression de genre, le niveau d’expérience, l’éducation, le statut socio-économique, la nationalité, l’apparence personnelle, la race, la caste, la couleur, la religion, ou l’identité et l’orientation sexuelle.

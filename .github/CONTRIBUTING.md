@@ -1,6 +1,6 @@
-# Guide de contribution à Toolbox_MLObs
+# Guide de contribution à orchestration_CI_CD
 
-Merci de l'intérêt que vous portez à **Toolbox_MLObs** ! Ce projet est actuellement en version **v0.1.1**. 
+Merci de l'intérêt que vous portez à **orchestration_CI_CD** ! Ce projet est actuellement en version **v0.1.1**. 
 
 Nous accueillons avec plaisir toutes les contributions : rapports de bugs, suggestions de fonctionnalités ou améliorations du code.
 
@@ -12,8 +12,8 @@ Ce projet utilise [uv](https://github.com/astral-sh/uv) pour une gestion ultra-r
 
 1. **Cloner le projet** :
    ```bash
-   git clone [https://github.com/Lionel-JOURDHIER/Toolbox_MLObs.git](https://github.com/Lionel-JOURDHIER/Toolbox_MLObs.git)
-   cd Toolbox_MLObs
+   git clone [https://github.com/Lionel-JOURDHIER/orchestration_CI_CD.git](https://github.com/Lionel-JOURDHIER/orchestration_CI_CD.git)
+   cd orchestration_CI_CD
    ```
 
 2. **Installer les dépendances** :
@@ -37,7 +37,7 @@ Nous suivons un cycle de développement structuré pour garantir la stabilité d
     ```
 
 2. **Créer un nouveau fichier**
-   * Pour le code source : ajoutez votre fichier .py dans le dossier src/Toolbox_MLObs/ (ou le dossier racine du module).
+   * Pour le code source : ajoutez votre fichier .py dans le dossier src/orchestration_CI_CD/ (ou le dossier racine du module).
    * Pour la documentation : utilisez le dossier docs/.
 
 3. **Ajouter votre code**
