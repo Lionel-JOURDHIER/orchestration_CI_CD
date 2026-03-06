@@ -17,7 +17,7 @@ Votre application doit être composée de trois services distincts :
 2. **API (FastAPI)** : Le cerveau qui traite les requêtes et parle à la BDD.
 3. **Database (PostgreSQL)** : Le stockage persistant des données.
 
->Chaque partie à son propre `pyprojet.toml` (API et Frontend), la base de données sera lancé depuis son image docker officielle.
+>Chaque partie à son propre `pyprojet.toml` (API et Frontend), la base de données sera lancé depuis son image docker officielle. 
 
 ---
 
