@@ -9,9 +9,11 @@ dependencies = [
     "requests>=2.32.5",
     "streamlit>=1.55.0",
 ]
+
 [tool.pytest.ini_options]
 pythonpath = ["app_front"] 
 testpaths = ["../tests"]
+python_files = ["test_front_*.py"]
 
 [tool.coverage.run]
 # On définit explicitement la racine de recherche du code
