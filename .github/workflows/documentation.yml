@@ -24,10 +24,10 @@ jobs:
         with:
           version: "latest"
 
-      - name: Install Dependencies (Automated from sub-folders)
+      - name: Install Dependencies
         run: |
-          python -m pip install --upgrade pip
-          pip install sphinx furo myst-parser sphinxcontrib-bibtex sphinx-autodoc-typehints
+          # 1. On installe les dépendances de la doc (Sphinx, Furo, Myst, etc.)
+          uv sync --project docs
 
           # 1. On cherche tous les pyproject.toml dans les sous-dossiers
           # 2. On extrait les dépendances de chaque fichier
