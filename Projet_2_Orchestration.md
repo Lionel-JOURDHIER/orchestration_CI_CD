@@ -177,7 +177,7 @@ Créez le `docker-compose` : **`docker-compose.prod.yml`** qui ne build mais cha
 │   ├── models/            # Dossier contenant le modèle pydantic
 │   │   ├── __init__.py
 │   │   └── models.py      # modèle pydantic
-│   ├── modules/           # Dossier contenant la logique du projet 1
+│   ├── modules/           # Dossier contenant la logique du projet 2
 │   │   ├── __init__.py
 │   │   ├── connect.py     # Contient les operations de connexion et de CRUD
 │   │   └── crud.py        # Contient les operations de CRUD
