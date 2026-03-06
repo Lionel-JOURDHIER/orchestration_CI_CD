@@ -64,11 +64,6 @@ jobs:
         with:
           path: 'public'
 
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: 'public'
-
   deploy-docs:
     needs: build-docs
     runs-on: ubuntu-latest
