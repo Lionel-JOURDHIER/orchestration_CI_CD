@@ -33,7 +33,7 @@ jobs:
           # 2. On extrait les dépendances de chaque fichier
           # 3. On installe tout via pip
           find . -name "pyproject.toml" -exec sed -n '/dependencies = \[/,/\]/p' {} + \
-            | grep -E '"[^"]+"' | sed 's/[",]//g' | xargs -r pip install
+            | grep -E '"[^"]+"' | sed 's/[",]//g' | xargs -r uv pip install
 
       - name: Generate API skeleton
         run: |
