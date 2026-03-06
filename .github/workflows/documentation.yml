@@ -27,7 +27,7 @@ jobs:
       - name: Install Dependencies
         run: |
           # 1. On installe les dépendances de la doc (Sphinx, Furo, Myst, etc.)
-          uv venv 
+          uv venv --project docs
           uv sync --project docs
 
           # 1. On cherche tous les pyproject.toml dans les sous-dossiers
