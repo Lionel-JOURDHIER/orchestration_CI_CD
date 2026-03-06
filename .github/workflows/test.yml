@@ -47,7 +47,7 @@ jobs:
             --no-cov-on-fail \
             --cov-report=term-missing \
             --cov-report=json:app_front/coverage_front.json \
-            > app_front/pytest_report_front.txt 2>& || true
+            > app_front/pytest_report_front.txt 2>&1 
           
           echo "### UI Front-end" >> $GITHUB_STEP_SUMMARY
           if grep -q 'TOTAL' app_front/pytest_report_front.txt; then
@@ -72,7 +72,7 @@ jobs:
             --no-cov-on-fail \
             --cov-report=term-missing \
             --cov-report=json:app_api/coverage_api.json \
-            > app_api/pytest_report_api.txt 2>& || true
+            > app_api/pytest_report_api.txt 2>&1 || true 
           
           echo "### UI Back-end" >> $GITHUB_STEP_SUMMARY
           if grep -q 'TOTAL' app_api/pytest_report_api.txt; then
