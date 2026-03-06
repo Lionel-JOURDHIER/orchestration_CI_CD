@@ -37,17 +37,17 @@ jobs:
         env:
           FASTAPI_PORT: 8000
         run: |
-          # Exécution et capture
+          # On lance pytest. Grâce au pyproject.toml, il cherchera ../tests
           uv run pytest --cov=. \
             --cov-report=term-missing \
             --cov-report=json:coverage_front.json \
             --cov-report=html:htmlcov_front \
-            > pytest_report_front.txt 2>&1 || true
+            > pytest_report_front.txt 2>&1
           
-          # Extraction du % pour le step summary
-          COV_PERCENT=$(grep 'TOTAL' pytest_report_front.txt | awk '{print $NF}')
+          # Extraction du % (Correction du nom de fichier ici)
           echo "### UI Front-end" >> $GITHUB_STEP_SUMMARY
           grep 'TOTAL' pytest_report_front.txt | awk '{print "Couverture totale : " $NF}' >> $GITHUB_STEP_SUMMARY
+
 
       - name: Install dependencies app_api
         working-directory: app_api
@@ -58,18 +58,15 @@ jobs:
         env:
           FASTAPI_PORT: 8000
         run: |
-          # Exécution et capture
           uv run pytest --cov=. \
             --cov-report=term-missing \
             --cov-report=json:coverage_api.json \
             --cov-report=html:htmlcov_api \
-            > pytest_report_api.txt 2>&1 || true
+            > pytest_report_api.txt 2>&1
           
-          # Extraction du % pour le step summary
-          COV_PERCENT=$(grep 'TOTAL' pytest_report_api.txt | awk '{print $NF}')
-          echo "### UI Back-end" >> $GITHUB_STEP_SUMMARY
+          echo "### API Back-end" >> $GITHUB_STEP_SUMMARY
           grep 'TOTAL' pytest_report_api.txt | awk '{print "Couverture totale : " $NF}' >> $GITHUB_STEP_SUMMARY
-
+          
       - name: Archive Code Coverage Results
         uses: actions/upload-artifact@v4
         if: always()
