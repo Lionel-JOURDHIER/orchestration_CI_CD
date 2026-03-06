@@ -5,10 +5,29 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
+    "dotenv>=0.9.9",
     "fastapi>=0.135.1",
     "pydantic>=2.12.5",
+    "sqlalchemy>=2.0.48",
     "uvicorn>=0.41.0",
 ]
+
+[tool.pytest.ini_options]
+pythonpath = ["app_api"] 
+testpaths = ["../tests"]
+python_files = ["test_api_*.py"]
+
+[tool.coverage.run]
+# On définit explicitement la racine de recherche du code
+source = ["./app_api"]
+# On ignore tout ce qui n'est pas dans app_api (au cas où)
+omit = [
+    "./app_front/*",
+    "app_front/*",
+    "./tests/*",
+    "tests/*"
+]
+
 
 [dependency-groups]
 dev = [

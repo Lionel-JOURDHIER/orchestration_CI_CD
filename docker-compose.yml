@@ -14,8 +14,6 @@ services:
     container_name: mon_api
     ports:
       - "${FASTAPI_PORT:-8000}:8080"
-    # volumes:
-    #   - ./app_api:/app
     environment:
       - FASTAPI_PORT=${FASTAPI_PORT}
     restart: always
@@ -23,6 +21,26 @@ services:
       sh -c "python -m uvicorn main:app --host 0.0.0.0 --port $$FASTAPI_PORT"
     networks:
       - app_network
+
+  database:
+    image: postgres:15-alpine
+    container_name: postgres_container
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_PORT : ${POSTGRES_PORT}
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+    volumes:
+      # Persistance des données (le volume survit à l'arrêt du conteneur)
+      - db_data:/var/lib/postgresql/data
+
+    networks:
+      - app_network
+
+volumes:
+  db_data: # Déclaration du volume nommé
 
 networks:
   app_network:
