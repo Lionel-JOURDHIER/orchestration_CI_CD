@@ -39,14 +39,15 @@ jobs:
         env:
           FASTAPI_PORT: 8000
         run: |
-          # On lance pytest depuis la racine en ciblant le projet front
-          # On ajoute le dossier app_front au PYTHONPATH pour que les imports 'from main import...' fonctionnent
-          PYTHONPATH=app_front uv run --project app_front pytest tests/ \
+          # Exécution et capture
+          uv run --project app_front pytest tests/ \
+            -c app_front/pyproject.toml \
             --cov=app_front \
+            --cov-config=app_front/pyproject.toml \
+            --no-cov-on-fail \
             --cov-report=term-missing \
             --cov-report=json:app_front/coverage_front.json \
-            --cov-report=html:app_front/htmlcov_front \
-            > app_front/pytest_report_front.txt 2>&1 || true
+            > app_front/pytest_report_front.txt 2>& || true
           
           echo "### UI Front-end" >> $GITHUB_STEP_SUMMARY
           if grep -q 'TOTAL' app_front/pytest_report_front.txt; then
@@ -63,13 +64,15 @@ jobs:
         env:
           FASTAPI_PORT: 8000
         run: |
-          # On lance pytest depuis la racine en ciblant le projet api
-          PYTHONPATH=app_api uv run --project app_api pytest tests/ \
+          # Exécution et capture
+          uv run --project app_api pytest tests/ \
+            -c app_api/pyproject.toml \
             --cov=app_api \
+            --cov-config=app_api/pyproject.toml \
+            --no-cov-on-fail \
             --cov-report=term-missing \
             --cov-report=json:app_api/coverage_api.json \
-            --cov-report=html:app_api/htmlcov_api \
-            > app_api/pytest_report_api.txt 2>&1 || true
+            > app_api/pytest_report_api.txt 2>& || true
           
           echo "### UI Back-end" >> $GITHUB_STEP_SUMMARY
           if grep -q 'TOTAL' app_api/pytest_report_api.txt; then

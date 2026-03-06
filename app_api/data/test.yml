@@ -38,19 +38,16 @@ jobs:
           FASTAPI_PORT: 8000
         run: |
           # Exécution et capture
-          uv run --project app_front pytest tests/ \
-            -c app_front/pyproject.toml \
-            --cov=app_front \
-            --cov-config=app_front/pyproject.toml \
-            --no-cov-on-fail \
+          uv run pytest --cov=. \
             --cov-report=term-missing \
-            --cov-report=json:app_front/coverage_front.json \
-            > app_front/pytest_report_front.txt 2>& || true
+            --cov-report=json:coverage_front.json \
+            --cov-report=html:htmlcov_front \
+            > pytest_report_front.txt 2>&1 || true
           
           # Extraction du % pour le step summary
-          COV_PERCENT=$(grep 'TOTAL' app_front/pytest_report_front.txt | awk '{print $NF}')
+          COV_PERCENT=$(grep 'TOTAL' pytest_report_front.txt | awk '{print $NF}')
           echo "### UI Front-end" >> $GITHUB_STEP_SUMMARY
-          grep 'TOTAL' app_front/pytest_report_front.txt | awk '{print "Couverture totale : " $NF}' >> $GITHUB_STEP_SUMMARY
+          grep 'TOTAL' pytest_report_front.txt | awk '{print "Couverture totale : " $NF}' >> $GITHUB_STEP_SUMMARY
 
       - name: Install dependencies app_api
         working-directory: app_api
@@ -62,20 +59,16 @@ jobs:
           FASTAPI_PORT: 8000
         run: |
           # Exécution et capture
-          uv run --project app_api pytest tests/ \
-            -c app_api/pyproject.toml \
-            --cov=app_api \
-            --cov-config=app_api/pyproject.toml \
-            --no-cov-on-fail \
+          uv run pytest --cov=. \
             --cov-report=term-missing \
-            --cov-report=json:app_api/coverage_api.json \
-            > app_api/pytest_report_api.txt 2>& || true
-
+            --cov-report=json:coverage_api.json \
+            --cov-report=html:htmlcov_api \
+            > pytest_report_api.txt 2>&1 || true
           
           # Extraction du % pour le step summary
-          COV_PERCENT=$(grep 'TOTAL' app_api/pytest_report_api.txt | awk '{print $NF}')
+          COV_PERCENT=$(grep 'TOTAL' pytest_report_api.txt | awk '{print $NF}')
           echo "### UI Back-end" >> $GITHUB_STEP_SUMMARY
-          grep 'TOTAL' app_api/pytest_report_api.txt | awk '{print "Couverture totale : " $NF}' >> $GITHUB_STEP_SUMMARY
+          grep 'TOTAL' pytest_report_api.txt | awk '{print "Couverture totale : " $NF}' >> $GITHUB_STEP_SUMMARY
 
       - name: Archive Code Coverage Results
         uses: actions/upload-artifact@v4
