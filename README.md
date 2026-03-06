@@ -1,13 +1,13 @@
 # Architecture de base ToolBox
 
-Ce projet %REPO% est en version %VERSION% et appartient à %USER%.
+Ce projet orchestration_CI_CD est en version  et appartient à Lionel-JOURDHIER.
 
-[![Documentation](https://img.shields.io/badge/Documentation-GitHub%20Pages-blue?logo=github&logoColor=white)](https://%USER%.github.io/%REPO%/) [![Code](https://img.shields.io/badge/Code-%VERSION%-181717?logo=github)](https://github.com/%USER%/%REPO%) ![Deploy Documentation](https://github.com/%USER%/%REPO%/actions/workflows/documentation.yml/badge.svg) [![Python Tests](https://github.com/%USER%/%REPO%/actions/workflows/test.yml/badge.svg)](https://github.com/%USER%/%REPO%/actions)  [![Ruff Status](https://github.com/%USER%/%REPO%/actions/workflows/ruff.yml/badge.svg)](https://github.com/%USER%/%REPO%/actions) ![Security Audit](https://img.shields.io/badge/Security-Audit_Passed-green?logo=github-actions&logoColor=white) ![Ruff](https://img.shields.io/badge/Ruff-checked-green?logo=ruff&logoColor=white)
-![Python](https://img.shields.io/badge/python-3.11-blue.svg)  ![Linter](https://img.shields.io/badge/linter-ruff-orange.svg)  ![License](https://img.shields.io/badge/license-MIT-green.svg) ![uv](https://img.shields.io/badge/managed%20by-uv-de5b41.svg) ![Docker](https://img.shields.io/badge/docker-ready-blue.svg?logo=docker) ![Last Commit](https://img.shields.io/github/last-commit/%USER%/%REPO%) ![Repo Size](https://img.shields.io/github/repo-size/%USER%/%REPO%) ![Open Issues](https://img.shields.io/github/issues/%USER%/%REPO%)
-![Contributeurs](https://img.shields.io/github/contributors/%USER%/%REPO%?logo=github&color=orange)
+[![Documentation](https://img.shields.io/badge/Documentation-GitHub%20Pages-blue?logo=github&logoColor=white)](https://Lionel-JOURDHIER.github.io/orchestration_CI_CD/) [![Code](https://img.shields.io/badge/Code--181717?logo=github)](https://github.com/Lionel-JOURDHIER/orchestration_CI_CD) ![Deploy Documentation](https://github.com/Lionel-JOURDHIER/orchestration_CI_CD/actions/workflows/documentation.yml/badge.svg) [![Python Tests](https://github.com/Lionel-JOURDHIER/orchestration_CI_CD/actions/workflows/test.yml/badge.svg)](https://github.com/Lionel-JOURDHIER/orchestration_CI_CD/actions)  [![Ruff Status](https://github.com/Lionel-JOURDHIER/orchestration_CI_CD/actions/workflows/ruff.yml/badge.svg)](https://github.com/Lionel-JOURDHIER/orchestration_CI_CD/actions) ![Security Audit](https://img.shields.io/badge/Security-Audit_Passed-green?logo=github-actions&logoColor=white) ![Ruff](https://img.shields.io/badge/Ruff-checked-green?logo=ruff&logoColor=white)
+![Python](https://img.shields.io/badge/python-3.11-blue.svg)  ![Linter](https://img.shields.io/badge/linter-ruff-orange.svg)  ![License](https://img.shields.io/badge/license-MIT-green.svg) ![uv](https://img.shields.io/badge/managed%20by-uv-de5b41.svg) ![Docker](https://img.shields.io/badge/docker-ready-blue.svg?logo=docker) ![Last Commit](https://img.shields.io/github/last-commit/Lionel-JOURDHIER/orchestration_CI_CD) ![Repo Size](https://img.shields.io/github/repo-size/Lionel-JOURDHIER/orchestration_CI_CD) ![Open Issues](https://img.shields.io/github/issues/Lionel-JOURDHIER/orchestration_CI_CD)
+![Contributeurs](https://img.shields.io/github/contributors/Lionel-JOURDHIER/orchestration_CI_CD?logo=github&color=orange)
 
 ### Liste des contributeurs
-[![Contributeurs](https://contrib.rocks/image?repo=%USER%/%REPO%)](https://github.com/%USER%/%REPO%/graphs/contributors)
+[![Contributeurs](https://contrib.rocks/image?repo=Lionel-JOURDHIER/orchestration_CI_CD)](https://github.com/Lionel-JOURDHIER/orchestration_CI_CD/graphs/contributors)
 
 ---
 ## Quickstart : Toolbox MLObs
@@ -20,7 +20,7 @@ L'utilisation de `uv` est recommandée pour une installation ultra-rapide des d�
 
 ```bash
 # Cloner et entrer dans le projet
-git clone [https://github.com/%USER%/%REPO%.git](https://github.com/%USER%/%REPO%.git) && cd %REPO%
+git clone [https://github.com/Lionel-JOURDHIER/orchestration_CI_CD.git](https://github.com/Lionel-JOURDHIER/orchestration_CI_CD.git) && cd orchestration_CI_CD
 
 # Créer l'environnement virtuel et installer les dépendances d'un coup
 uv venv
@@ -443,7 +443,7 @@ Il faut donc suivre ces étapes à partir du Repository en ligne
 * **Cliquer sur Pages** dans le menu de gauche
 * **Selectionner "GitHub Actions"** à la place de "Deploy from a branch" dans la section Build and deployment > Source
 
-La documentation sera alors accessible à l'adresse : https://%USER%.github.io/%REPO%/
+La documentation sera alors accessible à l'adresse : https://Lionel-JOURDHIER.github.io/orchestration_CI_CD/
 
 ## 6. Docker & CI/CD
 
