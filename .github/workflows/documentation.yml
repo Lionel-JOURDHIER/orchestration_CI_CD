@@ -52,18 +52,19 @@ jobs:
       # 2. GÉNÉRER LE HTML
       - name: Build Sphinx Documentation
         env:
-          # On définit la racine comme chemin de recherche Python
           PYTHONPATH: ${{ github.workspace }}
+        working-directory: docs
         run: |
-          mkdir -p public
-          # Génération du HTML
-          # -n : mode strict pour voir les erreurs de liens
-          sphinx-build -n -b html docs/source public
+          # On crée 'public' à la racine (..)
+          mkdir -p ../public
+          
+          # IMPORTANT : On utilise 'uv run' pour appeler sphinx-build
+          uv run sphinx-build -n -b html source ../public
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: 'public'
+          path: '../public'
 
   deploy-docs:
     needs: build-docs
