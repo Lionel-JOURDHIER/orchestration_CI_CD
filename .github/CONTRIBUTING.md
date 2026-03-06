@@ -1,6 +1,6 @@
 # Guide de contribution à orchestration_CI_CD
 
-Merci de l'intérêt que vous portez à **orchestration_CI_CD** ! Ce projet est actuellement en version **v0.1.0**. 
+Merci de l'intérêt que vous portez à **orchestration_CI_CD** ! Ce projet est actuellement en version **v**. 
 
 Nous accueillons avec plaisir toutes les contributions : rapports de bugs, suggestions de fonctionnalités ou améliorations du code.
 
@@ -29,7 +29,7 @@ Ce projet utilise [uv](https://github.com/astral-sh/uv) pour une gestion ultra-r
     ```
 
 ## Workflow de travail
-Nous suivons un cycle de développement structuré pour garantir la stabilité de **v0.1.0**.
+Nous suivons un cycle de développement structuré pour garantir la stabilité de **v**.
 
 1. **Créer une branche de travail**
     ```bash
