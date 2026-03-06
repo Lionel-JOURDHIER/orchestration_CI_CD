@@ -39,7 +39,7 @@ jobs:
         run: |
           mkdir -p docs/source
           # On boucle sur tous les dossiers commençant par app_
-          for dir in app_*; do
+          for dir in ../app_*; do
             if [ -d "$dir" ]; then
               echo "Génération de la doc pour : $dir"
               # Création d'un sous-dossier dans docs/source pour éviter les collisions
