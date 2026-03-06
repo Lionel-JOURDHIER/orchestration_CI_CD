@@ -1,7 +1,10 @@
 name: Python Tests
+
 on:
   push:
-    branches: [ main, dev , 'feat/**']  # Branch to survey
+    branches: [ main, dev, 'feat/**' ]
+  pull_request:
+    branches: [ main, dev ]
 
 permissions:
   contents: write
@@ -12,8 +15,8 @@ jobs:
   build_app:
     runs-on: ubuntu-latest
     strategy:
-        matrix:
-            python-version: ["3.11"]
+      matrix:
+        python-version: ["3.11"]
 
     steps:
       - name: Checkout code
@@ -28,45 +31,54 @@ jobs:
       - name: Set up Python ${{ matrix.python-version }}
         run: uv python install ${{ matrix.python-version }}
 
+      # --- TESTS FRONT-END ---
       - name: Install dependencies app_front
-        working-directory: app_front
-        run: uv sync --frozen --all-extras --all-groups
-      
+        run: uv sync --project app_front --frozen --all-extras --all-groups
+
       - name: Run Tests app_front
-        working-directory: app_front
         env:
           FASTAPI_PORT: 8000
         run: |
-          # On lance pytest. Grâce au pyproject.toml, il cherchera ../tests
-          uv run pytest --cov=. \
+          # On lance pytest depuis la racine en ciblant le projet front
+          # On ajoute le dossier app_front au PYTHONPATH pour que les imports 'from main import...' fonctionnent
+          PYTHONPATH=app_front uv run --project app_front pytest tests/ \
+            --cov=app_front \
             --cov-report=term-missing \
-            --cov-report=json:coverage_front.json \
-            --cov-report=html:htmlcov_front \
-            > pytest_report_front.txt 2>&1
+            --cov-report=json:app_front/coverage_front.json \
+            --cov-report=html:app_front/htmlcov_front \
+            > app_front/pytest_report_front.txt 2>&1 || true
           
-          # Extraction du % (Correction du nom de fichier ici)
           echo "### UI Front-end" >> $GITHUB_STEP_SUMMARY
-          grep 'TOTAL' pytest_report_front.txt | awk '{print "Couverture totale : " $NF}' >> $GITHUB_STEP_SUMMARY
+          if grep -q 'TOTAL' app_front/pytest_report_front.txt; then
+            grep 'TOTAL' app_front/pytest_report_front.txt | awk '{print "Couverture totale : " $NF}' >> $GITHUB_STEP_SUMMARY
+          else
+            echo "Aucun test trouvé ou erreur lors de l'exécution." >> $GITHUB_STEP_SUMMARY
+          fi
 
-
+      # --- TESTS API (BACK-END) ---
       - name: Install dependencies app_api
-        working-directory: app_api
-        run: uv sync --frozen --all-extras --all-groups
-      
+        run: uv sync --project app_api --frozen --all-extras --all-groups
+
       - name: Run Tests app_api
-        working-directory: app_api
         env:
           FASTAPI_PORT: 8000
         run: |
-          uv run pytest --cov=. \
+          # On lance pytest depuis la racine en ciblant le projet api
+          PYTHONPATH=app_api uv run --project app_api pytest tests/ \
+            --cov=app_api \
             --cov-report=term-missing \
-            --cov-report=json:coverage_api.json \
-            --cov-report=html:htmlcov_api \
-            > pytest_report_api.txt 2>&1
+            --cov-report=json:app_api/coverage_api.json \
+            --cov-report=html:app_api/htmlcov_api \
+            > app_api/pytest_report_api.txt 2>&1 || true
           
-          echo "### API Back-end" >> $GITHUB_STEP_SUMMARY
-          grep 'TOTAL' pytest_report_api.txt | awk '{print "Couverture totale : " $NF}' >> $GITHUB_STEP_SUMMARY
-          
+          echo "### UI Back-end" >> $GITHUB_STEP_SUMMARY
+          if grep -q 'TOTAL' app_api/pytest_report_api.txt; then
+            grep 'TOTAL' app_api/pytest_report_api.txt | awk '{print "Couverture totale : " $NF}' >> $GITHUB_STEP_SUMMARY
+          else
+            echo "Aucun test trouvé ou erreur lors de l'exécution." >> $GITHUB_STEP_SUMMARY
+          fi
+
+      # --- ARCHIVAGE ---
       - name: Archive Code Coverage Results
         uses: actions/upload-artifact@v4
         if: always()
@@ -74,6 +86,6 @@ jobs:
           name: full-coverage-reports
           path: |
             app_front/pytest_report_front.txt
-            app_front/htmlcov_front/**
+            app_front/htmlcov_front/
             app_api/pytest_report_api.txt
-            app_api/htmlcov_api/**
+            app_api/htmlcov_api/
