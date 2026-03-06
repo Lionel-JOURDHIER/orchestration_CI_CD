@@ -4,7 +4,7 @@ from unittest.mock import patch
 from streamlit.testing.v1 import AppTest
 
 CURRENT_DIR = os.path.dirname(__file__)
-ABS_PATH_APP = os.path.join(CURRENT_DIR, "../main.py")
+ABS_PATH_APP = os.path.join(CURRENT_DIR, "../app_front/main.py")
 
 
 def test_streamlit_api_connection_success():

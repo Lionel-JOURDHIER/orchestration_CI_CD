@@ -6,7 +6,7 @@ from streamlit.testing.v1 import AppTest
 
 # On pointe vers le fichier dans le dossier pages
 current_dir = os.path.dirname(__file__)
-ABS_PATH_READ = os.path.join(current_dir, "../pages/1_read.py")
+ABS_PATH_READ = os.path.join(current_dir, "../app_front/pages/1_read.py")
 
 
 def test_read_quotes_success():

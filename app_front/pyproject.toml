@@ -10,8 +10,19 @@ dependencies = [
     "streamlit>=1.55.0",
 ]
 [tool.pytest.ini_options]
-pythonpath = ["."] 
+pythonpath = ["app_front"] 
 testpaths = ["../tests"]
+
+[tool.coverage.run]
+# On définit explicitement la racine de recherche du code
+source = ["./app_front"]
+# On ignore tout ce qui n'est pas dans app_front (au cas où)
+omit = [
+    "./app_api/*",
+    "app_api/*",
+    "./tests/*",
+    "tests/*"
+]
 
 [dependency-groups]
 dev = [

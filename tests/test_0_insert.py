@@ -6,7 +6,7 @@ import requests
 from streamlit.testing.v1 import AppTest
 
 # Chemin vers votre fichier frontend
-ABS_PATH_APP = os.path.join(os.path.dirname(__file__), "../pages/0_insert.py")
+ABS_PATH_APP = os.path.join(os.path.dirname(__file__), "../app_front/pages/0_insert.py")
 
 
 def test_insert_quote_success():
