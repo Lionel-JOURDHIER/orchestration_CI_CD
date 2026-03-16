@@ -45,6 +45,9 @@ def create_session(engine=ENGINE):
 
 def existing_citation():
     session = create_session()
+    if session is None:
+        logger.error("Impossible de lire la DB : session non établie.")
+        return {}
     try:
         existing_citations = {p.text: p.id for p in session.query(Citations).all()}
         return existing_citations
@@ -63,11 +66,11 @@ def write_db(df: pd.DataFrame):
         None
     """
     session = create_session()
-    if not session:
+    if session is None:
+        logger.error("Impossible de lire la DB : session non établie.")
         return
 
     try:
-        session = create_session()
         citations_to_add = []
         existing_citations = existing_citation()
         for _, row in df.iterrows():
@@ -76,11 +79,12 @@ def write_db(df: pd.DataFrame):
                 citation = Citations(text=text)
                 citations_to_add.append(citation)
 
-        if citations_to_add:
+        if not citations_to_add:
             session.add_all(citations_to_add)
 
             session.commit()
             logger.info(f"{len(citations_to_add)} citations ajoutées.")
+
     except Exception as e:
         session.rollback()
         logger.error(f"Erreur d'écriture : {e}")
