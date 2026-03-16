@@ -13,12 +13,14 @@ services:
     build: ./app_api
     container_name: mon_api
     ports:
-      - "${FASTAPI_PORT:-8000}:8080"
+      - "${FASTAPI_PORT}:${FASTAPI_PORT}"
     environment:
       - FASTAPI_PORT=${FASTAPI_PORT}
+    env_file:
+      - .env
     restart: always
     command: >
-      sh -c "python -m uvicorn main:app --host 0.0.0.0 --port $$FASTAPI_PORT"
+      sh -c "uvicorn main:app --host 0.0.0.0 --port $$FASTAPI_PORT"
     networks:
       - app_network
 
