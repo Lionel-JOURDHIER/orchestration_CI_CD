@@ -1,0 +1,62 @@
+services:
+  # --- FRONTEND (Streamlit) ---
+  streamlit-app:
+    # On utilise l'image du Docker Hub au lieu de 'build:'
+    image: ${DOCKER_USER}/app-front:latest
+    container_name: streamlit_prod
+    restart: always
+    ports:
+      - "${STREAMLIT_PORT:-8501}:8501"
+    env_file:
+      - .env
+    networks:
+      - front-api
+    depends_on:
+      - api-app
+
+  # --- BACKEND (FastAPI) ---
+  api-app:
+    image: ${DOCKER_USER}/app-api:latest
+    container_name: api_prod
+    restart: always
+    ports:
+      - "${FASTAPI_PORT}:${FASTAPI_PORT}"
+    env_file:
+      - .env
+    # Note: On laisse l'env var pour que l'app sache sur quel port écouter
+    environment:
+      - FASTAPI_PORT=${FASTAPI_PORT}
+    # En prod, on évite de redéfinir la commande si elle est déjà dans le Dockerfile
+    # Mais si tu en as besoin :
+    command: sh -c "uv run uvicorn main:app --host 0.0.0.0 --port ${FASTAPI_PORT}"
+    networks:
+      - front-api
+      - api-db
+    depends_on:
+      - database
+
+  # --- DATABASE (Postgres) ---
+  database:
+    image: postgres:15-alpine
+    container_name: postgres_prod
+    restart: always
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    # Optionnel : En prod, on n'expose souvent pas le port 5432 à l'extérieur
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    networks:
+      - api-db
+
+volumes:
+  db_data:
+
+networks:
+  front-api:
+    driver: bridge
+  api-db: 
+    driver: bridge
