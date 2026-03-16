@@ -25,16 +25,13 @@ jobs:
           version: "latest"
 
       - name: Install Dependencies
-        working-directory: docs
         run: |
-          # 1. On installe les dépendances de la doc (Sphinx, Furo, Myst, etc.)
-          uv sync
+          # 1. Installer les dépendances de la doc normalement
+          cd docs && uv sync && cd ..
 
-          # 1. On cherche tous les pyproject.toml dans les sous-dossiers
-          # 2. On extrait les dépendances de chaque fichier
-          # 3. On installe tout via pip
-          find .. -name "pyproject.toml" -not -path "../docs/*" -exec sed -n '/dependencies = \[/,/\]/p' {} + \
-            | grep -E '"[^"]+"' | sed 's/[",]//g' | xargs -r uv pip install
+          # 2. Installer les dépendances des autres apps proprement
+          # On boucle sur chaque pyproject.toml et on demande à uv d'installer ses dépendances
+          find . -name "pyproject.toml" -not -path "./docs/*" -exec uv pip install -r {} \;
 
       - name: Generate API skeleton
         run: |
