@@ -2,9 +2,9 @@ import os
 
 import pandas as pd
 from loguru import logger
-from models.models import Citations
+from models.models import Base, Citations
 from sqlalchemy import create_engine
-from sqlalchemy.orm import declarative_base, sessionmaker
+from sqlalchemy.orm import sessionmaker
 
 # On récupère les variables d'environnement (définies dans ton docker-compose)
 POSTGRES_USER = os.getenv("POSTGRES_USER")
@@ -17,7 +17,6 @@ SQLALCHEMY_DATABASE_URL = (
 
 ENGINE = create_engine(SQLALCHEMY_DATABASE_URL)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=ENGINE)
-Base = declarative_base()
 
 
 def create_session(engine=ENGINE):
@@ -79,9 +78,8 @@ def write_db(df: pd.DataFrame):
                 citation = Citations(text=text)
                 citations_to_add.append(citation)
 
-        if not citations_to_add:
+        if citations_to_add:
             session.add_all(citations_to_add)
-
             session.commit()
             logger.info(f"{len(citations_to_add)} citations ajoutées.")
 

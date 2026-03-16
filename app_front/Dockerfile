@@ -24,4 +24,4 @@ COPY . .
 EXPOSE 8501
 
 # 7. Lancement de l'application
-CMD ["streamlit", "run", "main.py", "--server.address=0.0.0.0"]
+CMD ["uv", "run", "streamlit", "run", "main.py", "--server.address=0.0.0.0"]
