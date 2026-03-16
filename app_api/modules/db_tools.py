@@ -14,6 +14,8 @@ POSTGRES_DB = os.getenv("POSTGRES_DB")
 SQLALCHEMY_DATABASE_URL = (
     f"postgresql://{POSTGRES_USER}:{POSTGRES_PASSWORD}@database:5432/{POSTGRES_DB}"
 )
+# TODO: Supprimer cette clé de test avant la mise en prod
+aws_secret = "AKIAIMNO7CQH6EXAMPLE"
 
 ENGINE = create_engine(SQLALCHEMY_DATABASE_URL)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=ENGINE)
