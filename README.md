@@ -22,90 +22,96 @@ Ce guide cous permet d'uttiliser l'orchestrateur pour lier un front et une base 
 L'utilisation de `uv` est recommandée pour une installation ultra-rapide des dépendances.
 
 ```bash
-# Cloner et entrer dans le projet
 git clone [https://github.com/Lionel-JOURDHIER/orchestration_CI_CD.git](https://github.com/Lionel-JOURDHIER/orchestration_CI_CD.git) && cd orchestration_CI_CD
 
-# Créer l'environnement virtuel pour la partie front
 uv sync --project app_front # cd app_front && uv sync && cd ..
 
-# Créer l'environnement virtuel pour la partie api
 uv sync --project app_api # cd app_api && uv sync && cd ..
 
-# Créer l'environnement virtuel pour la documentation automatique
 uv sync --project docs # cd docs && uv sync && cd ..
 ```
 
-### 2. Execution du programme
+### 2. Création des contener en local
 
-Pour exécuter le programme tout en garantissant la résolution des imports :
+Pour créer les conteneurs, utilisez la commande suivante :
 
 ```bash
-# Via l'environnement activé
-python -m app.main
-
-# OU directement avec uv (sans activation préalable)
-uv run python -m app.main
+docker compose build && docker compose up
 ```
 
+### 2. Création des conteners dockers depuis le repository docker online (dernière version)
 
-## 6. Docker & CI/CD
+Pour créer les conteneurs, utilisez la commande suivante :
 
-Ce projet est entièrement conteneurisé et configuré pour un déploiement continu (CD).
+```bash
+docker compose -f docker-compose.prod.yml pull
+docker compose -f docker-compose.prod.yml up
+```
 
-### Architecture de déploiement:
+## Uttilisation de l'application
 
-- **Image de base :** `python:3.11-slim` (pour la compatibilité Pandas/Numpy)
-- **Gestionnaire :** [uv](https://github.com/astral-sh/uv) pour des builds ultra-rapides.
-- **CI/CD :** GitHub Actions (Tests Pytest -> Build Docker -> Push Docker Hub).
-- **Mise à jour :** Watchtower (détection automatique des nouvelles images sur le serveur).
+Les adresses sont celle definis dans le fichier .env. Vous pouvez utiliser les adresses pour tester la fonctionnalité de prédiction.
 
-### Lancement local (Développement)
+API (Swagger) : http://localhost:9090/docs
 
-Si vous voulez lancer l'application avec Docker sur votre machine :
+Frontend Streamlit : http://localhost:8501
 
-1. **Build de l'image :**
-   ```bash
-   docker build -t mon-app-python .
-   ```
+### Architecture : 
 
-2. **Lancement du conteneur :**
-  ```bash
-  docker run -d -p 8080:5000 --name $DOCKER_CONTENEUR mon-app-python
-  ```
+```plaintext
+.
+├── .github/
+│   ├── workflows/
+│   │   ├── deploy_docker.yml         # Docker 
+│   │   ├── documentation.yml         # Documentation  
+│   │   ├── extract.yml               # Extract information depuis le repo pour compléter le README
+│   │   ├── ruff.yml                  # lintage 
+│   │   ├── secrets.yml               # verifie la présence de secret dans le code
+│   │   └── test.yml                  # execute les test pour le code 
+│   ├── CONTRIBUTING.template.md
+│   ├── CONTRIBUTING.md
+│   ├── CODE_OF_CONDUCT.template.md
+│   └── CODE_OF_CONDUCT.md
+├── app_front/             # Service Streamlit
+│   ├── main.py
+│   ├── pages
+│   │   ├── 0_insert.py
+│   │   └── 1_read.py  
+│   ├── pyproject.toml
+│   ├── uv.lock
+│   └── Dockerfile
+├── app_api/               # Service FastAPI
+│   ├── Dockerfile
+│   ├── pyproject.toml
+│   ├── uv.lock
+│   ├── models/            # Dossier contenant le modèle pydantic
+│   │   ├── __init__.py
+│   │   └── models.py      # modèle pydantic
+│   ├── modules/           # Dossier contenant la logique du projet 2
+│   │   ├── __init__.py
+│   │   └── db_tools.py     # Contient les operations de connexion et de CRUD
+│   ├── maths/             # Dossier contenant la logique du projet 1
+│   │   ├── __init__.py
+│   │   └── mon_module.py  # Contient les fonctions add, sub, square, print_data
+│   ├── data/              # Dossier contenant les data du projet 1
+│   │   └── moncsv.csv     # Données d'entrée pour la démonstration
+│   └── main.py            # Point d'entrée de l'application
+├── tests/
+│   ├── test_api.py
+│   ├── test_front_1_read.py
+│   ├── test_front_app_front/py
+│   └── test_front_0_insert.py
+├── docker-compose.yml         # Pour le développement (build: .)
+├── docker-compose.prod.yml    # Pour la prod (image: user/repo:tag)
+├── pytest.ini
+├── .gitignore
+├── .dockerignore
+├── README.md
+├── README.template.md
+└── .env.example
+ 
 
-L'application sera accessible sur http://localhost:8080
-
-Vous pouvez lancer un autre port que 8080 pour lancer le conteneur sur le serveur.
-
-3. **Vérification des logs :**
-  ```bash
-  docker logs -f $DOCKER_CONTENEUR
-  ```
-
-### Déploiement en Production (Serveur):
-
-Le déploiement est automatisé via GitHub Actions et Docker Compose.
-
-1. Configuration initiale du serveur
-* Installez Docker et Docker Compose sur votre VPS.
-* Copiez uniquement le fichier docker-compose.yml dans un dossier dédié (ex: /var/www/mon-app/).
-* Créer un fichier .env à la racine du projet : 
-
-  ```bash
-  DOCKER_USER=votre_pseudo
-  DOCKER_CONTENEUR=nom_de_l_image
-  APP_PORT=80
-  ```
-
-1. Lancement de la Stack
-  ```bash
-  docker compose up -d
-  ```
-
-Cela lancera simultanément :
-
-* L'application Python : accessible sur le port 80.
-* Watchtower : qui vérifiera toutes les 5 minutes sur Docker Hub si une nouvelle image est disponible pour redéployer l'app automatiquement.
+```
 
 ### Maintenance et Suppression :
 
@@ -117,13 +123,12 @@ Voici les commandes pour gérer le cycle de vie de l'application :
   ```
 2. **Arrêter l'application en supprimant le contener, le réseaux et les images:**
   ```bash
-  docker-compose down --rmi all
+  docker compose down --rmi all
   ```
 
 3. **Supprimer l'image de l'application:**
   ```bash
-  docker rmi fatman3194/mon-app-python
-  docker rmi containrrr/watchtower
+
   ```
 
 4. **Nettoyage complet (recommandé si l'espace disque est saturé) :**
