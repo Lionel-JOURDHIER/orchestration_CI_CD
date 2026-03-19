@@ -20,7 +20,7 @@ RUN uv pip install --system --no-cache uvicorn fastapi
 COPY . .
 
 # 6. Exposition du port (optionnel mais recommandé pour la clarté)
-EXPOSE 8080
+EXPOSE ${FASTAPI_PORT:-8000}
 
 # 7. Lancement de l'API
-CMD ["uv", "run", "uvicorn", "main:app", "--host", "0.0.0.0", "--port", "9090"]
+CMD ["uv", "run", "uvicorn", "main:app", "--host", "0.0.0.0"]

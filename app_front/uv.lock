@@ -28,13 +28,13 @@ version = "0.1.0"
 source = { virtual = "." }
 dependencies = [
     { name = "dotenv" },
+    { name = "pandas" },
     { name = "requests" },
     { name = "streamlit" },
 ]
 
 [package.dev-dependencies]
 dev = [
-    { name = "pandas" },
     { name = "pytest" },
     { name = "pytest-cov" },
     { name = "ruff" },
@@ -43,13 +43,13 @@ dev = [
 [package.metadata]
 requires-dist = [
     { name = "dotenv", specifier = ">=0.9.9" },
+    { name = "pandas", specifier = ">=1.4.0,<3.0.0" },
     { name = "requests", specifier = ">=2.32.5" },
     { name = "streamlit", specifier = ">=1.55.0" },
 ]
 
 [package.metadata.requires-dev]
 dev = [
-    { name = "pandas", specifier = ">=2.3.3" },
     { name = "pytest", specifier = ">=9.0.2" },
     { name = "pytest-cov", specifier = ">=7.0.0" },
     { name = "ruff", specifier = ">=0.15.4" },

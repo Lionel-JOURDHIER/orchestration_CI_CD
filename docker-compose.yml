@@ -7,6 +7,8 @@ services:
       - "${STREAMLIT_PORT:-8501}:8501"
     env_file:
       - .env
+    environment:
+      - STREAMLIT_SERVER_PORT=${STREAMLIT_PORT:-8501}
     networks:
       - front-api
   api-app:
@@ -34,7 +36,7 @@ services:
       POSTGRES_DB: ${POSTGRES_DB}
       POSTGRES_PORT : ${POSTGRES_PORT}
     ports:
-      - "${POSTGRES_PORT:-5432}:5432"
+      - "${POSTGRES_PORT:-5432}:${POSTGRES_PORT:-5432}"
     volumes:
       # Persistance des données (le volume survit à l'arrêt du conteneur)
       - db_data:/var/lib/postgresql/data

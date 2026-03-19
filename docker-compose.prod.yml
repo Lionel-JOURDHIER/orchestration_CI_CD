@@ -9,6 +9,8 @@ services:
       - "${STREAMLIT_PORT:-8501}:8501"
     env_file:
       - .env
+    environment:
+      - STREAMLIT_SERVER_PORT=${STREAMLIT_PORT:-8501}
     networks:
       - front-api
     depends_on:
@@ -46,7 +48,7 @@ services:
       POSTGRES_DB: ${POSTGRES_DB}
     # Optionnel : En prod, on n'expose souvent pas le port 5432 à l'extérieur
     ports:
-      - "${POSTGRES_PORT:-5432}:5432"
+      - "${POSTGRES_PORT:-5432}:${POSTGRES_PORT:-5432}"
     volumes:
       - db_data:/var/lib/postgresql/data
     networks:

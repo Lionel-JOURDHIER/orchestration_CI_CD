@@ -4,6 +4,6 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "${STREAMLIT_PORT}:8501"
+      - "${STREAMLIT_PORT}:${STREAMLIT_PORT}"
     env_file:
       - .env

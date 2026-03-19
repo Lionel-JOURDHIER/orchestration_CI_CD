@@ -21,7 +21,7 @@ RUN uv pip install --system --no-cache -r pyproject.toml
 COPY . .
 
 # 6. Exposition du port par défaut de Streamlit
-EXPOSE 8501
+EXPOSE ${STREAMLIT_PORT:-8501}
 
 # 7. Lancement de l'application
 CMD ["uv", "run", "streamlit", "run", "main.py", "--server.address=0.0.0.0"]
