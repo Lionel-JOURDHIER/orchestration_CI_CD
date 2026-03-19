@@ -40,14 +40,14 @@ jobs:
       - name: Run Frontend Tests
         working-directory: app_front
         run: |
-          uv sync --frozen --all-extras
-          uv run pytest
+          uv sync --project app_front --frozen --all-extras --all-groups
+          uv run python3 -m pytest
 
       - name: Run API Tests
         working-directory: app_api
         run: |
-          uv sync --frozen --all-extras
-          uv run pytest
+          uv sync --project app_api --frozen --all-extras --all-groups
+          uv run python3 -m pytest
 
       # 4. Connexion au Docker Hub (utilise tes Secrets GitHub)
       - name: Login to Docker Hub
