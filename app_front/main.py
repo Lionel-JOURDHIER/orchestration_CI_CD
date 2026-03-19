@@ -1,4 +1,4 @@
-# frontend/app.py
+# app_front/main.py
 import os
 
 import requests
